@@ -390,8 +390,8 @@ var clickSpark = (function(){
          * public methods
          */
         return {
-            setParticleImagePath: function (val) {
-                setParticleImagePath(val);
+            setParticleImagePaths: function (val) {
+                setParticleImagePaths(val);
             },
             setParticleCount: function (val) {
                 setParticleCount(val);
