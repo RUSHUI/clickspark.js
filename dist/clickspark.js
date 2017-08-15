@@ -15,7 +15,8 @@ var clickSpark = (function(){
     var $ = jQuery;
     //global default spec
     var csDefaultSpecs = {
-        particleImagePath: '',
+        particleImagePaths:[],
+        // particleImagePath: '',
         particleCount: 35,
         particleSpeed: 12,
         particleDuration: 400,
@@ -31,7 +32,8 @@ var clickSpark = (function(){
 
         $(this).on("click", function (e) {
             //set specification vars
-            clickSpark.setParticleImagePath(spec.particleImagePath);
+            clickSpark.setParticleImagePaths(spec.particleImagePaths);
+            // clickSpark.setParticleImagePath(spec.particleImagePath);
             clickSpark.setParticleCount(spec.particleCount);
             clickSpark.setParticleSpeed(spec.particleSpeed);
             clickSpark.setParticleDuration(spec.particleDuration);
@@ -49,7 +51,8 @@ var clickSpark = (function(){
     var clickSpark = function (spec) {
 
         //spec Attributes
-        var particleImagePath = csDefaultSpecs.particleImagePath;
+        var particleImagePaths = csDefaultSpecs.particleImagePaths;
+        // var particleImagePath = csDefaultSpecs.particleImagePath;
         var particleCount = csDefaultSpecs.particleCount;
         var particleSpeed = csDefaultSpecs.particleSpeed;
         var particleDuration = csDefaultSpecs.particleDuration;
@@ -92,9 +95,9 @@ var clickSpark = (function(){
         /*
          * setters
          */
-        function setParticleImagePath(val) {
+        function setParticleImagePaths(val) {
             if (val !== undefined) {
-                particleImagePath = val;
+                particleImagePaths = val.splice(0);
             }
         }
 
@@ -139,6 +142,14 @@ var clickSpark = (function(){
                 callback = val;
             }
         }
+
+
+        /*
+         * getter
+         */
+         function getParticleImagePath(){
+            return particleImagePaths[Math.floor(Math.random()*particleImagePaths.length +1)-1]
+         }
 
         var $body, $document, $window;
         var $csCanvasContainer, $csParticleCanvas;
@@ -200,7 +211,7 @@ var clickSpark = (function(){
         function initParticle() {
             canvas = $csParticleCanvas[0];
             particleImg = new Image();
-            particleImg.src = particleImagePath || DEFAULT_IMG;
+            particleImg.src = getParticleImagePath() || DEFAULT_IMG;
 
             if (canvas && typeof(canvas['getContext']) === 'function') {
                 context = canvas.getContext("2d");
